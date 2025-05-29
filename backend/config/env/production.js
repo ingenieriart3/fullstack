@@ -19,6 +19,8 @@
  * https://sailsjs.com/docs/concepts/deployment
  */
 
+module.exports.port = process.env.PORT;
+
 module.exports = {
   /**************************************************************************
    *                                                                         *
@@ -132,15 +134,15 @@ module.exports = {
      * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
      *                                                                          *
      ***************************************************************************/
-    cors: {
-      // allowOrigins: [
-      //   'https://example.com',
-      // ]
-      allowOrigins: [
-        'https://www.growhardware.io',
-        'https://growhardware.io',
-      ]
-    },
+    // cors: {
+    //   // allowOrigins: [
+    //   //   'https://example.com',
+    //   // ]
+    //   allowOrigins: [
+    //     'https://www.growhardware.io',
+    //     'https://growhardware.io',
+    //   ]
+    // },
   },
 
   /***************************************************************************
@@ -309,7 +311,6 @@ module.exports = {
    *                                                                         *
    ***************************************************************************/
   // port: 80
-  port: process.env.PORT || 3000,
 
   /**************************************************************************
    *                                                                         *
