@@ -10,7 +10,7 @@
  */
 
 module.exports.bootstrap = async function() {
-
+  console.log('mongo URL ES> ', process.env.MONGO_URL);
   // Import dependencies
   var path = require('path');
 
