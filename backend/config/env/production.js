@@ -19,7 +19,6 @@
  * https://sailsjs.com/docs/concepts/deployment
  */
 
-module.exports.port = process.env.PORT;
 
 module.exports = {
   /**************************************************************************
@@ -340,8 +339,9 @@ module.exports = {
    *                                                                         *
    ***************************************************************************/
   custom: {
-    baseUrl: "https://example.com",
-    internalEmailAddress: "support@example.com",
+    baseUrl: "https://backend-production-378d.up.railway.app", // o el custom domain que uses después
+    internalEmailAddress: "info@growhardware.io",
+
 
     // sendgridSecret: 'SG.fake.3e0Bn0qSQVnwb1E4qNPz9JZP5vLZYqjh7sn8S93oSHU',
     // stripeSecret: 'sk_prod__fake_Nfgh82401348jaDa3lkZ0d9Hm',
