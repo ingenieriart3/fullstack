@@ -28,7 +28,13 @@ module.exports.security = {
 
   cors: {
     allRoutes: true,
-    allowOrigins: ["*"],
+    // allowOrigins: ["*"],
+    // Antes (inválido)
+    allowOrigins: '*',
+
+    // Después (válido, aunque más seguro especificando dominios)
+    allowOrigins: 'https://growhardware.io', 'https://growhardware.io, https://growhardware.org, https://growhardware.foundation',
+
     allowCredentials: true,
   },
 
