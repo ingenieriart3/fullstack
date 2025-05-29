@@ -26,6 +26,8 @@ var PRODUCTION_CONFIG = require("./production");
 //--------------------------------------------------------------------------
 
 module.exports = Object.assign({}, PRODUCTION_CONFIG, {
+  port: process.env.PORT || 3000,
+
   datastores: Object.assign({}, PRODUCTION_CONFIG.datastores, {
     default: Object.assign({}, PRODUCTION_CONFIG.datastores.default, {
       // url: 'mysql://shared:some_password_everyone_knows@db.example.com:3306/my_staging_db',
