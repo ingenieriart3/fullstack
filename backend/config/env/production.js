@@ -136,6 +136,10 @@ module.exports = {
       // allowOrigins: [
       //   'https://example.com',
       // ]
+      allowOrigins: [
+        'https://www.growhardware.io',
+        'https://growhardware.io',
+      ]
     },
   },
 
