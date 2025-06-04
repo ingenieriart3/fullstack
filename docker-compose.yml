@@ -58,27 +58,16 @@ services:
     networks:
       - growhardware-net
 
-  # gh_org:
-  #   image: squidfunk/mkdocs-material
-  #   container_name: gh_org
-  #   volumes:
-  #     - ./org:/docs
-  #   ports:
-  #     - '8001:8000'
-  #   working_dir: /docs
-  #   command: serve -a 0.0.0.0:8000
-  #   networks:
-  #     - growhardware-net
-
   gh_org:
-    build: ./org # Asumiendo que ponés el Dockerfile ahí
+    image: python:3.9-slim
     container_name: gh_org
+    build: ./org
     ports:
       - '8001:8000'
     working_dir: /docs
     volumes:
       - ./org:/docs
-    command: serve -a 0.0.0.0:8000
+    command: sh -c "pip install -r requirements.txt && mkdocs serve --dev-addr 0.0.0.0:8000"
     networks:
       - growhardware-net
 
