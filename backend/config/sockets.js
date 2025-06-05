@@ -79,9 +79,10 @@ module.exports.sockets = {
 
   // grant3rdPartyCookie: true,
 
-  // onlyAllowOrigins: [
-  //   'http://localhost:1337',
-  //   'http://localhost:3000',
-  //   'http://ec2-18-188-86-138.us-east-2.compute.amazonaws.com:3000/'
-  // ]
+  onlyAllowOrigins: [
+        '*'
+    // 'http://localhost:1337',
+    // 'http://localhost:3000',
+    // 'http://ec2-18-188-86-138.us-east-2.compute.amazonaws.com:3000/'
+  ]
 };
