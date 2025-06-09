@@ -79,6 +79,15 @@ services:
     networks:
       - growhardware-net
 
+  nanomq:
+    build: ./nanomq  # Esto se refiere a la carpeta donde está el Dockerfile de NanoMQ
+    container_name: gh_nanomq
+    ports:
+      - "1883:1883"   # Puerto MQTT
+      - "8081:8081"   # Si quieres habilitar la interfaz web
+    networks:
+      - growhardware-net
+
 networks:
   growhardware-net:
     driver: bridge
