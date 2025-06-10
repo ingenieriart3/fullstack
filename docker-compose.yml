@@ -72,19 +72,24 @@ services:
       - growhardware-net
 
   gh_foundation:
+    volumes:
+        - ./node_modules:/app/node_modules  # Store node_modules on host
     build: ./foundation
     container_name: gh_foundation
     ports:
       - '8002:3000'
     networks:
       - growhardware-net
-
-  nanomq:
-    build: ./nanomq  # Esto se refiere a la carpeta donde está el Dockerfile de NanoMQ
-    container_name: gh_nanomq
+  mqtt:
+    build: ./mqtt  # Esto se refiere a la carpeta donde está el Dockerfile de mqtt
+    container_name: gh_mqtt
     ports:
       - "1883:1883"   # Puerto MQTT
-      - "8081:8081"   # Si quieres habilitar la interfaz web
+      - "9001:9001"   # Si quieres habilitar la interfaz web
+    volumes:
+      - ./mqtt/mosquitto.conf:/etc/mosquitto/mosquitto.conf  # Montar el archivo de configuración
+      - mosquitto_data:/mosquitto/data  # Persistencia de datos
+      - mosquitto_log:/var/log/mosquitto  # Logs
     networks:
       - growhardware-net
 
@@ -94,3 +99,5 @@ networks:
 
 volumes:
   mongo_data:
+  mosquitto_data:
+  mosquitto_log:
