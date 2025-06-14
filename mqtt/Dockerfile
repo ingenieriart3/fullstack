@@ -11,27 +11,17 @@
 # CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
 
 
-# FROM eclipse-mosquitto:latest
-
-# # Crear directorio de persistencia y asignar permisos
-# RUN mkdir -p /var/lib/mosquitto/ && \
-# chown -R mosquitto:mosquitto /var/lib/mosquitto/
-
-# # Copiar configuración
-# COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
-
-# # VOLUME /var/lib/mosquitto
-
-# EXPOSE 1883 9001
-# CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
-
 FROM eclipse-mosquitto:latest
 
-COPY mosquitto.conf etc/mosquitto/mosquitto.conf
 
-# ARG USERNAME
-# ARG PASSWORD
+# Crear directorio de persistencia y asignar permisos
+RUN mkdir -p /var/lib/mosquitto/ && \
+chown -R mosquitto:mosquitto /var/lib/mosquitto/
 
-# RUN mosquitto_passwd -c -b passwd $USERNAME $PASSWORD
+# Copiar configuración
+COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
 
-EXPOSE 1883
+# VOLUME /var/lib/mosquitto
+
+EXPOSE 1883 9001
+CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
