@@ -13,7 +13,7 @@
 
 FROM eclipse-mosquitto:latest
 
-VOLUME /var/lib/mosquitto
+# VOLUME /var/lib/mosquitto
 
 # Crear directorio de persistencia y asignar permisos
 RUN mkdir -p /var/lib/mosquitto/ && \
