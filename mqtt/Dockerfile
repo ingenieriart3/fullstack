@@ -10,7 +10,10 @@
 # # Configurar el comando de inicio del contenedor
 # CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
 
+
 FROM eclipse-mosquitto:latest
+
+VOLUME /var/lib/mosquitto
 
 # Crear directorio de persistencia y asignar permisos
 RUN mkdir -p /var/lib/mosquitto/ && \
