@@ -12,10 +12,12 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install -g sails
+RUN npm install mqtt --save
+RUN npm install mqtt dotenv --save
 RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# EXPOSE 3000
-ENV NODE_ENV production
+EXPOSE 3000
+# ENV NODE_ENV production
 CMD ["sails", "lift"]

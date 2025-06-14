@@ -115,4 +115,33 @@ module.exports = {
 
     return proceed();
   },
+  afterCreate: async function (newDevice, proceed) {
+    await publishDeviceUpdate(newDevice, 'create');
+    return proceed();
+  },
+
+  afterUpdate: async function (updatedDevice, proceed) {
+    await publishDeviceUpdate(updatedDevice, 'update');
+    return proceed();
+  }
 };
+
+// Función auxiliar para publicar en MQTT
+async function publishDeviceUpdate(device, action) {
+  if (!sails.mqttClient?.connected) return;
+
+  const topic = `rw/${device.id}/updates`;  // Tópico con ID (ej: "rw/abc123/updates")
+  const message = JSON.stringify({
+    action,
+    device,
+    timestamp: new Date()
+  });
+
+  sails.mqttClient.publish(topic, message, { qos: 1 }, (err) => {
+    if (err) {
+      sails.log.error('Error publicando en MQTT:', err);
+    } else {
+      sails.log.verbose(`📤 MQTT update publicado en ${topic}`);
+    }
+  });
+}
