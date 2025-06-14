@@ -38,5 +38,6 @@
 
 FROM eclipse-mosquitto:latest
 COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
-EXPOSE 1883 9001
+EXPOSE 1883
+# 9001
 CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
