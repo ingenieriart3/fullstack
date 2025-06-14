@@ -13,14 +13,15 @@
 
 FROM eclipse-mosquitto:latest
 
-# VOLUME /var/lib/mosquitto
 
 # Crear directorio de persistencia y asignar permisos
 RUN mkdir -p /var/lib/mosquitto/ && \
-    chown -R mosquitto:mosquitto /var/lib/mosquitto/
+chown -R mosquitto:mosquitto /var/lib/mosquitto/
 
 # Copiar configuración
 COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
+
+VOLUME /var/lib/mosquitto
 
 EXPOSE 1883 9001
 CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
