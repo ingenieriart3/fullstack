@@ -3,8 +3,8 @@
     "services": [
       {
         "name": "mosquitto",
-        "port": 1883,
-        "protocol": "tcp"
+        "ports": [1883, 9001],
+        "protocols": ["tcp", "tcp"]
       }
     ]
   }
