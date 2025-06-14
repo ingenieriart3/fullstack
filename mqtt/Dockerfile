@@ -21,7 +21,7 @@ chown -R mosquitto:mosquitto /var/lib/mosquitto/
 # Copiar configuración
 COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
 
-VOLUME /var/lib/mosquitto
+# VOLUME /var/lib/mosquitto
 
 EXPOSE 1883 9001
 CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
