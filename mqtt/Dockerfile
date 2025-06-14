@@ -1,11 +1,23 @@
-# Usar la imagen oficial de Mosquitto
+# # Usar la imagen oficial de Mosquitto
+# FROM eclipse-mosquitto:latest
+
+# # Copiar el archivo de configuración personalizado si es necesario
+# COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
+
+# # Exponer los puertos
+# EXPOSE 1883 9001
+
+# # Configurar el comando de inicio del contenedor
+# CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
+
 FROM eclipse-mosquitto:latest
 
-# Copiar el archivo de configuración personalizado si es necesario
+# Crear directorio de persistencia y asignar permisos
+RUN mkdir -p /var/lib/mosquitto/ && \
+    chown -R mosquitto:mosquitto /var/lib/mosquitto/
+
+# Copiar configuración
 COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
 
-# Exponer los puertos
 EXPOSE 1883 9001
-
-# Configurar el comando de inicio del contenedor
 CMD ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
