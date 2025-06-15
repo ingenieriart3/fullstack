@@ -135,8 +135,12 @@ async function publishToHiveMQ(device, action) {
   //   device,
   //   timestamp: new Date()
   // });
+
+  const plan = {
+    "plan": JSON.stringify(device['plan'])
+  }
   
-  const message = JSON.stringify(device['plan']);
+  const message = JSON.stringify(plan);
 
   sails.mqttClient.publish(topic, message, { qos: 1 }, (err) => {
     if (err) sails.log.error('Error MQTT:', err);
