@@ -98,10 +98,16 @@ const DeviceCreate = () => {
                       Select Kind
                     </option>
                     <option
-                      value="concept-medulla"
+                      value="light-medulla"
                       className="text-body dark:text-bodydark"
                     >
-                      concept-medulla
+                      light-medulla
+                    </option>
+                    <option
+                      value="multi-medulla"
+                      className="text-body dark:text-bodydark"
+                    >
+                      multi-medulla
                     </option>
                     <option
                       value="light-medulla"

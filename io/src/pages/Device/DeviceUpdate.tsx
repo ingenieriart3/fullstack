@@ -27,7 +27,13 @@ const DeviceUpdate = () => {
   const handleResponse = (body, JWR) => {
     if (JWR.statusCode === 200) {
       const { alias, kind, port, status, plan } = body;
-      setDeviceData({ alias, kind, port, status, plan });
+      setDeviceData({ 
+        alias, 
+        kind, 
+        port, 
+        status: status || '', 
+        plan: plan || '' 
+      });
     } else {
       console.log('Error: ', JWR);
     }
@@ -63,6 +69,7 @@ const DeviceUpdate = () => {
     updateDevice(attributes);
     navigate(`/devices/`, { replace: true });
   };
+
   return (
     <>
       <Breadcrumb pageName="Update device" />
@@ -97,7 +104,6 @@ const DeviceUpdate = () => {
                     name="alias"
                     value={deviceData.alias}
                     onChange={handleChange}
-                    // {...register('alias', { required: true })}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
@@ -124,10 +130,16 @@ const DeviceUpdate = () => {
                       Select Kind
                     </option>
                     <option
-                      value="concept-medulla"
+                      value="light-medulla"
                       className="text-body dark:text-bodydark"
                     >
-                      concept-medulla
+                      light-medulla
+                    </option>
+                    <option
+                      value="multi-medulla"
+                      className="text-body dark:text-bodydark"
+                    >
+                      multi-medulla
                     </option>
                     <option
                       value="water-medulla"
@@ -148,7 +160,6 @@ const DeviceUpdate = () => {
                     name="port"
                     value={deviceData.port}
                     onChange={handleChange}
-                    // {...register('port', { required: true })}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
                   />
                 </div>
@@ -161,9 +172,8 @@ const DeviceUpdate = () => {
                     type="text"
                     placeholder="Status"
                     name="status"
-                    value={JSON.stringify(deviceData.status)}
+                    value={deviceData.status}
                     onChange={handleChange}
-                    // {...register('status', { required: true })}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
                   />
                 </div>
@@ -176,9 +186,8 @@ const DeviceUpdate = () => {
                     rows={6}
                     placeholder="Active textarea"
                     name="plan"
-                    value={JSON.stringify(deviceData.plan)}
+                    value={deviceData.plan}
                     onChange={handleChange}
-                    // {...register('plan', { required: true })}
                     className="w-full rounded-lg border-[1.5px] border-primary bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input dark:text-white"
                   ></textarea>
                 </div>
