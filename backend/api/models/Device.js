@@ -130,21 +130,37 @@ async function publishToHiveMQ(device, action) {
   if (!sails.mqttClient?.connected) return;
 
   const topic = `gh-mqtt/${device.id}/updates`; // Topic personalizado
-  // const message = JSON.stringify({
-  //   action,
-  //   device,
-  //   timestamp: new Date()
-  // });
-
-  const plan = {
-    "plan": JSON.stringify(device['plan'])
-  }
-  
-  const message = JSON.stringify(plan);
-  // const message = device['plan'];
+  const message = JSON.stringify({
+    action,
+    device,
+    timestamp: new Date()
+  });
 
   sails.mqttClient.publish(topic, message, { qos: 1 }, (err) => {
     if (err) sails.log.error('Error MQTT:', err);
     else sails.log.debug(`Publicado en ${topic}`);
   });
 }
+
+// async function publishToHiveMQ(device, action) {
+//   if (!sails.mqttClient?.connected) return;
+
+//   const topic = `gh-mqtt/${device.id}/updates`; // Topic personalizado
+//   // const message = JSON.stringify({
+//   //   action,
+//   //   device,
+//   //   timestamp: new Date()
+//   // });
+
+//   const plan = {
+//     "plan": JSON.stringify(device['plan'])
+//   }
+  
+//   const message = JSON.stringify(plan);
+//   // const message = device['plan'];
+
+//   sails.mqttClient.publish(topic, message, { qos: 1 }, (err) => {
+//     if (err) sails.log.error('Error MQTT:', err);
+//     else sails.log.debug(`Publicado en ${topic}`);
+//   });
+// }
