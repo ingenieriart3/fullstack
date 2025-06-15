@@ -116,21 +116,20 @@ module.exports = {
     return proceed();
   },
   afterCreate: async function (newDevice, proceed) {
-    await publishDeviceUpdate(newDevice, 'create');
+    await publishToHiveMQ(newDevice, 'create');
     return proceed();
   },
 
   afterUpdate: async function (updatedDevice, proceed) {
-    await publishDeviceUpdate(updatedDevice, 'update');
+    await publishToHiveMQ(updatedDevice, 'update');
     return proceed();
   }
 };
 
-// Función auxiliar para publicar en MQTT
-async function publishDeviceUpdate(device, action) {
+async function publishToHiveMQ(device, action) {
   if (!sails.mqttClient?.connected) return;
 
-  const topic = `rw/${device.id}/updates`;  // Tópico con ID (ej: "rw/abc123/updates")
+  const topic = `gh-mqtt/${device.id}/updates`; // Topic personalizado
   const message = JSON.stringify({
     action,
     device,
@@ -138,10 +137,7 @@ async function publishDeviceUpdate(device, action) {
   });
 
   sails.mqttClient.publish(topic, message, { qos: 1 }, (err) => {
-    if (err) {
-      sails.log.error('Error publicando en MQTT:', err);
-    } else {
-      sails.log.verbose(`📤 MQTT update publicado en ${topic}`);
-    }
+    if (err) sails.log.error('Error MQTT:', err);
+    else sails.log.debug(`Publicado en ${topic}`);
   });
 }

@@ -96,7 +96,8 @@ module.exports.bootstrap = async function(done) {
   sails.log.info('Mongo URL:', process.env.MONGO_URL);
 
   // 2. Configuración MQTT (lo hacemos primero para que esté disponible cuanto antes)
-  await setupMQTTConnection();
+  // await setupMQTTConnection();
+  await setupHiveMQConnection();
 
   // 3. Lógica de inicialización de datos
   await initializeData();
@@ -107,34 +108,54 @@ module.exports.bootstrap = async function(done) {
 // ============ Funciones auxiliares ============
 
 /**
+ * Configuración MQTT con HiveMQ
+ */
+
+async function setupHiveMQConnection() {
+  const mqttClient = mqtt.connect('mqtt://broker.hivemq.com', {
+    clientId: 'sails-server-' + Math.random().toString(16).substr(2, 8),
+    protocolVersion: 4 // MQTT v3.1.1 para ESP32
+  });
+
+  mqttClient.on('connect', () => {
+    sails.log.info('✅ Conectado a HiveMQ Public Broker');
+  });
+
+  mqttClient.on('error', (err) => {
+    sails.log.error('❌ Error MQTT:', err);
+  });
+
+  sails.mqttClient = mqttClient;
+}
+/**
  * Configura la conexión MQTT con test.mosquitto.org
  */
-async function setupMQTTConnection() {
-  try {
-    const mqttClient = mqtt.connect('mqtt://test.mosquitto.org', {
-      username: 'rw',
-      password: 'readwrite',
-      clientId: 'sails-server-' + Math.random().toString(16).substr(2, 8),
-      protocolVersion: 4, // MQTT v3.1.1
-      reconnectPeriod: 5000 // Reconectar cada 5 segundos si falla
-    });
+// async function setupMQTTConnection() {
+//   try {
+//     const mqttClient = mqtt.connect('mqtt://test.mosquitto.org', {
+//       username: 'rw',
+//       password: 'readwrite',
+//       clientId: 'sails-server-' + Math.random().toString(16).substr(2, 8),
+//       protocolVersion: 4, // MQTT v3.1.1
+//       reconnectPeriod: 5000 // Reconectar cada 5 segundos si falla
+//     });
 
-    // Manejadores de eventos
-    mqttClient.on('connect', () => {
-      sails.log.info('✅ Conexión MQTT establecida con test.mosquitto.org');
-    });
+//     // Manejadores de eventos
+//     mqttClient.on('connect', () => {
+//       sails.log.info('✅ Conexión MQTT establecida con test.mosquitto.org');
+//     });
 
-    mqttClient.on('error', (err) => {
-      sails.log.error('❌ Error MQTT:', err);
-    });
+//     mqttClient.on('error', (err) => {
+//       sails.log.error('❌ Error MQTT:', err);
+//     });
 
-    // Guardar el cliente en sails para uso global
-    sails.mqttClient = mqttClient;
+//     // Guardar el cliente en sails para uso global
+//     sails.mqttClient = mqttClient;
 
-  } catch (err) {
-    sails.log.error('Error al configurar MQTT:', err);
-  }
-}
+//   } catch (err) {
+//     sails.log.error('Error al configurar MQTT:', err);
+//   }
+// }
 
 /**
  * Inicializa los datos de la aplicación
