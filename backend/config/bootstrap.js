@@ -92,6 +92,8 @@ const path = require('path');
 const mqtt = require('mqtt');
 
 module.exports.bootstrap = async function(done) {
+  console.log('🔧 ENV:', process.env.NODE_ENV);
+  console.log('🔗 MONGO_URL:', process.env.MONGO_URL);
   // 1. Mostrar URL de MongoDB (para debug)
   sails.log.info('Mongo URL:', process.env.MONGO_URL);
 

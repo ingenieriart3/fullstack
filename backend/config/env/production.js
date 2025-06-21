@@ -45,6 +45,7 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     default: {
+      url: process.env.MONGO_URL,
       // adapter: 'sails-mysql',
       // url: 'mysql://user:password@host:port/database',
       //--------------------------------------------------------------------------

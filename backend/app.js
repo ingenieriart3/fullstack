@@ -33,8 +33,6 @@ process.chdir(__dirname);
 var sails;
 var rc;
 try {
-  console.log(process.env.PORT)
-  console.log(process.env.PORT)
   sails = require('sails'); 
   rc = require('sails/accessible/rc');
 } catch (err) {
@@ -52,6 +50,9 @@ try {
   return;
 }//-•
 
+
+console.log('🚀 Levantando Sails en NODE_ENV:', process.env.NODE_ENV);
+console.log('🔗 Usando Mongo URL:', process.env.MONGO_URL);
 
 // Start server
 sails.lift(rc('sails'));
