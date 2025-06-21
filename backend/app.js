@@ -33,7 +33,9 @@ process.chdir(__dirname);
 var sails;
 var rc;
 try {
-  sails = require('sails');
+  console.log(process.env.PORT)
+  console.log(process.env.PORT)
+  sails = require('sails'); 
   rc = require('sails/accessible/rc');
 } catch (err) {
   console.error('Encountered an error when attempting to require(\'sails\'):');
